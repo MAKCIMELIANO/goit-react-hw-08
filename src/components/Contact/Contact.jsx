@@ -1,16 +1,21 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUser, FaPhone } from 'react-icons/fa';
 import css from './Contact.module.css';
 import { deleteContact } from '../../redux/contacts/operations';
+import Modal from '../Modal/Modal';
 
 export default function Contact({ contact }) {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
     try {
       await dispatch(deleteContact(contact.id)).unwrap();
     } catch (error) {
       console.error('Failed to delete contact: ', error);
+    } finally {
+      setShowModal(false);
     }
   };
 
@@ -26,9 +31,19 @@ export default function Contact({ contact }) {
         </p>
       </div>
 
-      <button className={css.button} type="button" onClick={handleDelete}>
+      <button
+        className={css.button}
+        type="button"
+        onClick={() => setShowModal(true)}
+      >
         Delete
       </button>
+
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 }
