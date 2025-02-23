@@ -8,6 +8,7 @@ import 'modern-normalize/modern-normalize.css';
 import './index.css';
 import App from './components/App/App';
 import { token } from './redux/auth/operations';
+import { Toaster } from 'react-hot-toast';
 
 const persistedToken = store.getState().auth.token;
 if (persistedToken) {
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <PersistGate loading={null} persistor={persistor}>
           <App />
+          <Toaster />
         </PersistGate>
       </BrowserRouter>
     </Provider>

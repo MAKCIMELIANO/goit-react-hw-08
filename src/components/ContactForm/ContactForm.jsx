@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import css from './ContactForm.module.css';
 import { addContact } from '../../redux/contacts/operations';
 import { selectContacts } from '../../redux/contacts/selectors';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -36,8 +37,10 @@ export default function ContactForm() {
       try {
         await dispatch(addContact(newContact)).unwrap();
         resetForm();
+        toast.success('Contact added successfully');
       } catch (error) {
         console.error('Failed to add contact: ', error);
+        toast.error('Failed to add contact');
       }
     }
   };
