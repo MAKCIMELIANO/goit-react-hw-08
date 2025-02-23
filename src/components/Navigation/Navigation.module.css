@@ -1,0 +1,9 @@
+.navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.active {
+    font-weight: bold;
+    color: black;
+}
